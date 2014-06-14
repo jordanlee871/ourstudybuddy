@@ -41,7 +41,8 @@ public class StudentController {
 		
 		return new ModelAndView("welcome", "message", message);
     }
-*/    
+*/  
+	/* demo display database in jsp*/
 	@RequestMapping(value = "/checkessaylogin", method = RequestMethod.GET)
 	public ModelAndView demologin(){		
 		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
