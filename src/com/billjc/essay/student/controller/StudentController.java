@@ -43,6 +43,7 @@ public class StudentController {
     }
 */  
 	/* demo display database in jsp*/
+	/* demo display database in jsp #2*/
 	
 	@RequestMapping(value = "/checkessaylogin", method = RequestMethod.GET)
 	public ModelAndView demologin(){		
