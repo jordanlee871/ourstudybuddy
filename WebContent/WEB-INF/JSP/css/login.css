@@ -1,0 +1,23 @@
+.bg .bg1 {
+	background-image: url(../images/login_bg1.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	width:661px;
+	height:633px;
+	margin:auto;
+}
+.bg{
+	background-image: url(../images/login_bg.gif);
+	background-repeat: repeat-x;
+}.message {
+	font-weight: bold;
+	color: #FF0000;
+}
+
+.contentinput{
+	border:1px solid #CCCCCC;
+	font-size:12px;
+	font-weight:normal;
+	padding:5px 5px 3px;
+	height:12px;
+}

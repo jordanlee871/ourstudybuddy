@@ -1,0 +1,33 @@
+.body {
+	
+	color:#352E2C;
+	 
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, img {
+         margin:0pt;
+         padding:0pt;
+		 font-size: 12px;
+}
+a{
+	cursor:pointer;
+	text-decoration: none;
+	color: #4F5D66;
+}
+.commmonBtn{
+    cursor:pointer;
+	height:27px;
+	width:84px;
+	background-image: url(../images/buttombg.gif);
+	background-color:buttonface;
+	background-repeat: no-repeat;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-position: 0px 0px;
+}
+.commmonBtnhover1,.commmonBtn:hover{
+   background-position: 0px -27px;
+} 
+#googlemap span{
+display:none!important;}
