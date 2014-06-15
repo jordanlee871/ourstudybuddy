@@ -1,6 +1,5 @@
 package com.billjc.essay.student.dao;
 
-import java.util.Date;
 import java.sql.Timestamp;
 
 public class Student {
