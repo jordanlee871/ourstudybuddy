@@ -24,6 +24,7 @@ public class StudentController {
 	@Autowired
 	private StudentService studentservice;
 /*	
+ * demo spring mvc @RequestMapping
 	@RequestMapping(value = "/checkessaylogin", method = RequestMethod.GET)
 	public ModelAndView demologin() 
 	{
@@ -42,9 +43,9 @@ public class StudentController {
 		return new ModelAndView("welcome", "message", message);
     }
 */  
-	/* demo display database in jsp*/
-	/* demo display database in jsp #2*/
-	
+
+/*	
+	demo retrieve data from databases.
 	@RequestMapping(value = "/checkessaylogin", method = RequestMethod.GET)
 	public ModelAndView demologin(){		
 		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
@@ -55,4 +56,5 @@ public class StudentController {
 		mav.addObject("studentlist", students);
 		return mav;
 	}
+*/	
 }
