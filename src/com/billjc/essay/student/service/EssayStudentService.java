@@ -13,6 +13,6 @@ public class EssayStudentService {
 	private EssayStudentDao essaystudentdao;
 	
 	public List<EssayStudent> Liststudent(){
-		return essaystudentdao.queryStudent("");
+		return essaystudentdao.queryStudent("admin");
 	}
 }
