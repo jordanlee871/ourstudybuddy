@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.billjc.essay.student.service.EssayStudentService;
+import com.billjc.essay.student.dao.Student;
 
 @Controller
 @RequestMapping(value = "/essaystudent")
