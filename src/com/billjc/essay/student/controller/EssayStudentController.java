@@ -31,6 +31,7 @@ public class EssayStudentController {
 		
 		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
 		mav.addObject("studentlist", students);
+		
 		return mav;
 	}
 }

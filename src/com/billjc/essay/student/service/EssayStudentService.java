@@ -15,4 +15,5 @@ public class EssayStudentService {
 	public List<EssayStudent> Liststudent(){
 		return essaystudentdao.queryStudent("admin");
 	}
+	
 }

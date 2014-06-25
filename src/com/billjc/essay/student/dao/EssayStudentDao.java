@@ -16,7 +16,18 @@ import com.billjc.speak.students.dao.StudentDao;
 @Repository
 public class EssayStudentDao extends BaseJdbcDaoEssay {
 	final Logger logger = LoggerFactory.getLogger(StudentDao.class);
-
+	
+	/**
+	 * 查找学生
+	 * @param 学生用户名，密码
+	 * @return 记录数
+	 * */
+	public int queryStudent(String Name, String Password){
+		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=?";
+		Object[] param = new Object[] { Name, Password };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().queryForInt(sql, param);
+	}
 	/**
 	 * 查找学生
 	 * 
