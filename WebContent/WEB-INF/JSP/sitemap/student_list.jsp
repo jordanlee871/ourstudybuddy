@@ -138,7 +138,7 @@ javascript"></script>
 <div class="topright"></div>
 <div class="buttomleft"></div>
 <div class="buttomright"></div>
-<div class="panelHeader">学生资料 ${message } </div>
+<div class="panelHeader">学生资料</div>
 <div class="panelsubmenu">
 <div style="text-align:right;padding-right:20px;">
 		<a href="index.php?type=student_edit&backType=student_list">增加学生</a>
@@ -176,7 +176,7 @@ javascript"></script>
         <td style="padding-left:5px;" height="25" align="center">${node.getQq()}</td>
         <td style="padding-left:5px;" height="25" align="center">${node.getPhone()}</td>
         <td style="padding-left:5px;" height="25" align="center">${node.getEmail()}</td>
-        <td style="padding-left:5px;" height="25" align="center">${node.getCreate_time()}</td>
+        <td style="padding-left:5px;" height="25" align="center">${node.getCreateTime()}</td>
         <td style="padding-left:5px;" height="25" align="center"><a href="index.php?type=student_edit&backType=student_list&editId=2132">详情</a></td>
 		</tr>		
 		</c:forEach>  
