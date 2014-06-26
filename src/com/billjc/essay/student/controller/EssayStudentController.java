@@ -30,7 +30,11 @@ public class EssayStudentController {
 		List<EssayStudent> students = essaystudentservice.Liststudent();
 		
 		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
-		mav.addObject("studentlist", students);
+		mav.addObject("studentlist", students);	
+		
+		int i = essaystudentservice.queryStudent( loginName, loginPass);
+		
+		System.out.print(i);
 		
 		return mav;
 	}
