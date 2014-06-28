@@ -27,7 +27,7 @@
 <body>
    <div class="bg">
       <div class="bg1">
-        <form action="/ourstudybuddy/essaystudent/checkessaylogin.do" method="get"  name="form1" id="form1">
+        <form action="/ourstudybuddy/system/checkessaylogin.do" method="get"  name="form1" id="form1">
           <table width="658" border="0">
             <tr>
               <td width="254" height="268">&nbsp;</td>

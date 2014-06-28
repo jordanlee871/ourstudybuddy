@@ -18,7 +18,7 @@ import com.billjc.essay.balance.service.*;
 import com.billjc.essay.appointment.*;
 
 @Controller
-@RequestMapping(value = "/system")
+@RequestMapping(value = "/system/")
 public class EssaySystemController {
 
 	
@@ -36,7 +36,7 @@ public class EssaySystemController {
 		int rcdcount = essaystudentservice.queryAdmin( loginName, loginPass);
 		
 		if(rcdcount > 0){
-			ModelAndView mav = new ModelAndView("/JSP/sitemap/appointment_edit");
+			ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
 			List<EssayStudent> liststudent = essaystudentservice.Liststudent();
 			List<EssayStudent> subliststudent = liststudent.subList(0, 11);
 			mav.addObject("studentlist", subliststudent);

@@ -29,12 +29,35 @@ public class EssayStudentDao extends BaseJdbcDaoEssay {
 		return this.getJdbcTemplate().queryForInt(sql, param);
 	}
 	
+	public List<EssayStudent> queryStudentObject(String Name, String Password){
+		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=?";
+		Object[] param = new Object[] { Name, Password };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().query(sql, param,
+				new EssayStudentRowMapper());
+	}
+	/*
+	 * 查找管理员
+	 * @return 记录数
+	 * */
 	public int queryAdmin(String Name, String Password){
 		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=? and isAdmin=1";
 		Object[] param = new Object[] { Name, Password };
 		logger.info(sql.replaceAll("\\?", "{}"), param);
 		return this.getJdbcTemplate().queryForInt(sql, param);
 	}
+
+	/*
+	 * 查找管理员
+	 * @return 管理员对象
+	 * */
+	public List<EssayStudent> queryAdminObject(String Name, String Password){
+		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=? and isAdmin=1";
+		Object[] param = new Object[] { Name, Password };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().query(sql, param,
+				new EssayStudentRowMapper());
+	}	
 	
 	/*
 	 * 无条件查找学生
@@ -44,6 +67,7 @@ public class EssayStudentDao extends BaseJdbcDaoEssay {
 		String sql = "SELECT * FROM COM_MEMBER ";
 		return this.getJdbcTemplate().query(sql,new EssayStudentRowMapper());
 	}
+	
 	/**
 	 * 查找学生
 	 * 
