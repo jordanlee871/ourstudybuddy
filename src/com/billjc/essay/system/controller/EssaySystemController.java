@@ -32,10 +32,14 @@ public class EssaySystemController {
 								   HttpServletRequest request, 
 								   HttpServletResponse response) throws Exception{
 		
-		int rcdcount = essaystudentservice.queryStudent( loginName, loginPass);
+		//Check admin login account
+		int rcdcount = essaystudentservice.queryAdmin( loginName, loginPass);
 		
 		if(rcdcount > 0){
 			ModelAndView mav = new ModelAndView("/JSP/sitemap/appointment_edit");
+			List<EssayStudent> liststudent = essaystudentservice.Liststudent();
+			List<EssayStudent> subliststudent = liststudent.subList(0, 11);
+			mav.addObject("studentlist", subliststudent);
 			return mav;
 		}
 		

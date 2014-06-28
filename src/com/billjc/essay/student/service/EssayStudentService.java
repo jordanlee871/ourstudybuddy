@@ -15,10 +15,15 @@ public class EssayStudentService {
 	private EssayStudentDao essaystudentdao;
 	
 	public List<EssayStudent> Liststudent(){
-		return essaystudentdao.queryStudent("admin");
+		return essaystudentdao.queryStudent();
 	}
 	
 	public int queryStudent( String Name, String Password ){
 		return essaystudentdao.queryStudent(Name, Password);
 	}
+	
+	public int queryAdmin( String Name, String Password ){
+		return essaystudentdao.queryAdmin(Name, Password);
+	}
+	
 }

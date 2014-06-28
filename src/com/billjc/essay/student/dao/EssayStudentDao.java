@@ -28,6 +28,22 @@ public class EssayStudentDao extends BaseJdbcDaoEssay {
 		logger.info(sql.replaceAll("\\?", "{}"), param);
 		return this.getJdbcTemplate().queryForInt(sql, param);
 	}
+	
+	public int queryAdmin(String Name, String Password){
+		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=? and isAdmin=1";
+		Object[] param = new Object[] { Name, Password };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().queryForInt(sql, param);
+	}
+	
+	/*
+	 * 无条件查找学生
+	 * 
+	 * */
+	public List<EssayStudent> queryStudent(){
+		String sql = "SELECT * FROM COM_MEMBER ";
+		return this.getJdbcTemplate().query(sql,new EssayStudentRowMapper());
+	}
 	/**
 	 * 查找学生
 	 * 
