@@ -206,7 +206,12 @@ javascript"></script>
 	<tr colspan="4" height="10"></tr>
     <tr>
       <td width="220" height="30" align='left'></td>
-      <td width="" class="title" colspan='3'><a href='#'>首頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href=index.php?type=student_list&page=2>下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href=index.php?type=student_list&page=208>末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <select onchange="javascript:submitback('index.php?type=student_list&page='+ this.options[this.selectedIndex].value)">
+      <td width="" class="title" colspan='3'>
+	  <a href="/ourstudybuddy/system/studentfirstpage.do">首頁</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+	  <a href="/ourstudybuddy/system/studentpreviouspage.do">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+	  <a href="/ourstudybuddy/system/studentnextpage.do">下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+	  <a href="/ourstudybuddy/system/studentlastpage.do">末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+	  <select onchange="javascript:submitback('index.php?type=student_list&page='+ this.options[this.selectedIndex].value)">
 	<option value=1 selected>1</option>
 	<option value=2>2</option>
 	<option value=3>3</option>

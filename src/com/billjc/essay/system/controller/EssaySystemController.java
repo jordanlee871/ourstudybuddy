@@ -38,7 +38,7 @@ public class EssaySystemController {
 		if(rcdcount > 0){
 			ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
 			List<EssayStudent> liststudent = essaystudentservice.Liststudent();
-			List<EssayStudent> subliststudent = liststudent.subList(0, 11);
+			List<EssayStudent> subliststudent = liststudent.subList(0, 10);
 			mav.addObject("studentlist", subliststudent);
 			return mav;
 		}
@@ -47,5 +47,28 @@ public class EssaySystemController {
 			ModelAndView mav = new ModelAndView("logout");
 			return mav;
 		}
+	}
+	
+	@RequestMapping(value = "/studentfirstpage", method = RequestMethod.GET)
+	public ModelAndView StudentFirstPage(HttpServletRequest request, 
+			   HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
+		List<EssayStudent> liststudent = essaystudentservice.Liststudent();
+		List<EssayStudent> subliststudent = liststudent.subList(0, 10);
+		mav.addObject("studentlist", subliststudent);
+		return mav;		
+	}
+	
+	@RequestMapping(value = "/studentlastpage", method = RequestMethod.GET)
+	public ModelAndView StudentLastPage(HttpServletRequest request, 
+			   HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
+		int index;
+		
+		List<EssayStudent> liststudent = essaystudentservice.Liststudent();
+		index = liststudent.size();
+		List<EssayStudent> subliststudent = liststudent.subList(index-10, index);
+		mav.addObject("studentlist", subliststudent);
+		return mav;		
 	}
 }
