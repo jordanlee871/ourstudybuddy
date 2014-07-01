@@ -177,7 +177,7 @@ javascript"></script>
         <td style="padding-left:5px;" height="25" align="center">${node.getPhone()}</td>
         <td style="padding-left:5px;" height="25" align="center">${node.getEmail()}</td>
         <td style="padding-left:5px;" height="25" align="center">${node.getCreateTime()}</td>
-        <td style="padding-left:5px;" height="25" align="center"><a href="index.php?type=student_edit&backType=student_list&editId=2132">详情</a></td>
+        <td style="padding-left:5px;" height="25" align="center"><a href="/ourstudybuddy/system/studentessaydetail.do?id=${node.getid()}">详情</a></td>
 		</tr>		
 		</c:forEach>  
     	<!--<tr>
@@ -211,7 +211,7 @@ javascript"></script>
 	  <a href="/ourstudybuddy/system/studentpreviouspage.do">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; 
 	  <a href="/ourstudybuddy/system/studentnextpage.do">下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; 
 	  <a href="/ourstudybuddy/system/studentlastpage.do">末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; 
-	  <select onchange="javascript:submitback('index.php?type=student_list&page='+ this.options[this.selectedIndex].value)">
+	  <select onchange="javascript:submitback('/ourstudybuddy/system/studentessayselect.do?page='+ this.options[this.selectedIndex].value)">
 	<option value=1 selected>1</option>
 	<option value=2>2</option>
 	<option value=3>3</option>
