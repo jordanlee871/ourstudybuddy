@@ -48,6 +48,10 @@ public class Student {
 	public Integer getId() {
 		return id;
 	}
+	
+	public String getIDstr(){
+		return Integer.toString(id);
+	}
 
 	public void setActive(String active) {
 		this.active = active;
