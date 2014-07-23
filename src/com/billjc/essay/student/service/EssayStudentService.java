@@ -26,4 +26,8 @@ public class EssayStudentService {
 		return essaystudentdao.queryAdmin(Name, Password);
 	}
 	
+	public List<EssayStudent> ListStudentId( String Id ){
+		return essaystudentdao.queryStudentIdObject(Id);
+	}
+	
 }

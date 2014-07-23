@@ -57,8 +57,23 @@ public class EssayStudentDao extends BaseJdbcDaoEssay {
 		logger.info(sql.replaceAll("\\?", "{}"), param);
 		return this.getJdbcTemplate().query(sql, param,
 				new EssayStudentRowMapper());
-	}	
+	}
 	
+	public List<EssayStudent> queryStudentNameObject(String Name){
+		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? ";
+		Object[] param = new Object[] { Name };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().query(sql, param,
+				new EssayStudentRowMapper());
+	}
+	
+	public List<EssayStudent> queryStudentIdObject( String Id ){
+		String sql = "SELECT * FROM COM_MEMBER WHERE  id=? ";
+		Object[] param = new Object[] { Id };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().query(sql, param,
+				new EssayStudentRowMapper());		
+	}
 	/*
 	 * 无条件查找学生
 	 * 

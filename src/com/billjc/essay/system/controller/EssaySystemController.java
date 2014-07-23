@@ -14,9 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.billjc.essay.student.entity.EssayStudent;
 import com.billjc.essay.student.service.EssayStudentService;
-import com.billjc.essay.balance.service.*;
+//import com.billjc.essay.balance.service.*;
 import com.billjc.essay.appointment.*;
 
+
+/*
+ * Production page http://www.ourstudybuddy.com/cms/index.php
+ * */
 @Controller
 @RequestMapping(value = "/system/")
 public class EssaySystemController {
@@ -140,5 +144,18 @@ public class EssaySystemController {
 		}
 		mav.addObject("studentlist", subliststudent);
 		return mav;		
+	}
+	
+	@RequestMapping(value = "/studentessaydetail", method = RequestMethod.GET)
+	public ModelAndView StudentDetailPage(
+			@RequestParam("id")String id,
+			HttpServletRequest request, 
+			HttpServletResponse response
+			) throws Exception {
+		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list_editid");
+		List<EssayStudent> liststudent = essaystudentservice.ListStudentId( id );
+		EssayStudent StudentInfor = liststudent.get(0);
+		mav.addObject("StudentInfor", StudentInfor);
+		return mav;
 	}
 }
