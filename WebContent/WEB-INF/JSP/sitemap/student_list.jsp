@@ -170,18 +170,16 @@ javascript"></script>
             <td style="padding-left:5px;" height="25" align="center"><input value="搜索" type="submit"/><br/>
             
         </form>
-		<c:set var="studentid" value="${0}"/>
 		<c:forEach items="${studentlist}" var="node">
-		<c:set var="studentid" value="${studentid}"/>
-		<tr>	
-		<c:url var="editUrl" value="/ourstudybuddy/system/studentessaydetail.do">
-        <c:param name="id" value="${node.getName()}" />
-        </c:url>
-		<td style="padding-left:5px;" height="25" align="center">${node.getName()}</td>
-        <td style="padding-left:5px;" height="25" align="center">${node.getQq()}</td>
-        <td style="padding-left:5px;" height="25" align="center">${node.getPhone()}</td>
-        <td style="padding-left:5px;" height="25" align="center">${node.getEmail()}</td>
-        <td style="padding-left:5px;" height="25" align="center">${node.getCreateTime()}</td>
+		<tr>
+		<c:url var="editUrl" value="/system/studentessaydetail.do">
+        <c:param name="id" value="${node.stuId}" />
+        </c:url>		
+		<td style="padding-left:5px;" height="25" align="center">${node.name}</td>
+        <td style="padding-left:5px;" height="25" align="center">${node.qq}</td>
+        <td style="padding-left:5px;" height="25" align="center">${node.phone}</td>
+        <td style="padding-left:5px;" height="25" align="center">${node.email}</td>
+        <td style="padding-left:5px;" height="25" align="center">${node.createTime}</td>
         <td style="padding-left:5px;" height="25" align="center"><a href='<c:out value="${editUrl}"/>'>详情</a></td>
 		</tr>		
 		</c:forEach>  
