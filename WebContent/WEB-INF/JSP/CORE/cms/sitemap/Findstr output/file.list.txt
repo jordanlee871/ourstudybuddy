@@ -1,0 +1,19 @@
+ 驱动器 D 中的卷是 data
+ 卷的序列号是 6B2E-1CD9
+
+ D:\Program Files (x86)\wget\www.ourstudybuddy.com\cms\sitemap 的目录
+
+2014/09/07  23:45    <DIR>          .
+2014/09/07  23:45    <DIR>          ..
+2014/09/07  23:45                 0 file.list.txt
+2014/09/07  23:31            10,399 index.php@type=appointment_edit
+2014/09/07  23:31            29,838 index.php@type=appointment_list
+2014/09/07  23:31             9,010 index.php@type=assistant_edit
+2014/09/07  23:31            16,443 index.php@type=cancel_appointment_list
+2014/09/07  23:31             7,434 index.php@type=charge_s_edit
+2014/09/07  23:31             8,500 index.php@type=export_edit
+2014/09/07  23:31             8,498 index.php@type=student_edit&backType=student_list
+2014/09/07  23:31            23,488 index.php@type=student_list
+2014/09/07  23:31            11,581 index.php@type=teacher_edit
+              10 个文件        125,191 字节
+               2 个目录 103,581,618,176 可用字节

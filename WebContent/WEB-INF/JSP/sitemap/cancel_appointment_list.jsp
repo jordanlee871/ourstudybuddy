@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.billjc.essay.student.dao.EssayStudentDao" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>后臺管理系統</title>
@@ -51,7 +54,7 @@ javascript"></script>
 </head>
 <body class="index">
 	<img src="../images/logo.gif"  class="logo"/>
-	<div class="adminBox">歡迎你,TA-Wayne(助教)<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
+	<div class="adminBox">歡迎你,${requestScope.UserNameType}<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
 	<div class="menu">
 					<a href="index.php?ac=cms" class='select' id='menu'>
 						<div class='tableft'></div>
@@ -79,17 +82,22 @@ javascript"></script>
 
 <div class="menu2">
 <a href="#">助教操作</a>
-<div class="menu3 "><a href="index.php?type=student_list">学生管理</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_list">学生预约</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_edit">作文预约</a></div>
-<div class="menu3 "><a href="index.php?type=teacher_edit">老师修改数量限制</a></div>
-<div class="menu3 selected"><a 
-	href="index.php?type=cancel_appointment_list">批量删除预约</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=charge_s_edit">批量充值</a></div>
-<div class="menu3 "><a href="index.php?type=export_edit">导出xls文件</a></div>
-<div class="menu3 "><a href="index.php?type=assistant_edit">配置</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_Edit.do ">注册</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_List.do">学生管理</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_List.do">预约记录</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_Edit.do">预约</a></div>
+<div class="menu3 menu_search_box_div">
+	<input id="fuzzy_search_box"/>
 </div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/teacher_Edit.do">老师修改数量限制</a></div>
+<div class="menu3 selected"><a 
+	href="/ourstudybuddy/${UserType}/cancelappointment_List.do">批量删除预约</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/charge_edit.do">批量充值</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/export_Edit.do">导出xls文件</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/assistant_Edit.do">配置</a></div>
+</div>
+
 
 
 
@@ -165,21 +173,111 @@ javascript"></script>
 	<!-- <tr height='15'><td colspan='创建时间'></td></tr>-->
    <!-- -->
        <tr>
-    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="10240"/></td> 
-		<td style="padding-left:5px;" height="25" align="center">2014-05-24</td>
-        <td style="padding-left:5px;" height="25" align="center">happyfang2008_love</td>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12117"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">辉辉的小窝7</td>
+        <td style="padding-left:5px;" height="25" align="center">task2</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">4</td>-->
+        <td style="padding-left:5px;" height="25" align="center">517016718@qq.com-task2-cycle4-Lea</td>
+        <td style="padding-left:5px;" height="25" align="center">Lea</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-05 12:00:05</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12163"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">liumanman19681001</td>
+        <td style="padding-left:5px;" height="25" align="center">task2</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">12</td>-->
+        <td style="padding-left:5px;" height="25" align="center">1378141556@qq.com-task2-cycle12-Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-07 14:33:08</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12157"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">yesproof</td>
+        <td style="padding-left:5px;" height="25" align="center">task2</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">4</td>-->
+        <td style="padding-left:5px;" height="25" align="center">358216024@qq.com-task2-cycle4-Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-07 12:09:06</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12149"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">liruiyan1464</td>
+        <td style="padding-left:5px;" height="25" align="center">task2</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">1</td>-->
+        <td style="padding-left:5px;" height="25" align="center">851405059@qq.com-task2-cycle1-Lea</td>
+        <td style="padding-left:5px;" height="25" align="center">Lea</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-06 21:02:26</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12130"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">huliang_xy</td>
+        <td style="padding-left:5px;" height="25" align="center">task2</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">3</td>-->
+        <td style="padding-left:5px;" height="25" align="center">530659606@qq.com-task2-cycle3-Lea</td>
+        <td style="padding-left:5px;" height="25" align="center">Lea</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-06 09:28:49</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12122"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">nkwwy</td>
+        <td style="padding-left:5px;" height="25" align="center">task2</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">7</td>-->
+        <td style="padding-left:5px;" height="25" align="center">18901035967@189.cn-task2-cycle7-Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-05 12:01:01</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12121"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">nkwwy</td>
+        <td style="padding-left:5px;" height="25" align="center">task2</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">6</td>-->
+        <td style="padding-left:5px;" height="25" align="center">18901035967@189.cn-task2-cycle6-Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-05 12:00:41</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12120"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">高清和靓靓</td>
         <td style="padding-left:5px;" height="25" align="center">task1</td>
-        <!--<td style="padding-left:5px;" height="25" align="center">10</td>-->
-        <td style="padding-left:5px;" height="25" align="center">happyfang2008.love@163.com-task1-cycle10-Jamie(中教)</td>
-        <td style="padding-left:5px;" height="25" align="center">Jamie(中教)</td>
-        <td style="padding-left:5px;" height="25" align="center">2014-05-22 12:10:49</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">38</td>-->
+        <td style="padding-left:5px;" height="25" align="center">16360010@qq.com-task1-cycle38-Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-05 12:00:39</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12118"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">高清和靓靓</td>
+        <td style="padding-left:5px;" height="25" align="center">task1</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">37</td>-->
+        <td style="padding-left:5px;" height="25" align="center">16360010@qq.com-task1-cycle37-Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-05 12:00:14</td>
+    </tr>
+        <tr>
+    	<td style="padding-left:5px;" height="25" align="center"><input style="width:70px" name="check" type="checkbox" value="12168"/></td> 
+		<td style="padding-left:5px;" height="25" align="center">2014-09-07</td>
+        <td style="padding-left:5px;" height="25" align="center">apple_forever92</td>
+        <td style="padding-left:5px;" height="25" align="center">task2</td>
+        <!--<td style="padding-left:5px;" height="25" align="center">3</td>-->
+        <td style="padding-left:5px;" height="25" align="center">fxyxshxxb@163.com-task2-cycle3-Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">Aimee</td>
+        <td style="padding-left:5px;" height="25" align="center">2014-09-07 17:54:55</td>
     </tr>
     </table>
 <table width="100%" border="0" cellspacing="0">
 	<tr colspan="4" height="10"></tr>
     <tr>
       <td width="220" height="30" align='left'></td>
-      <td width="" class="title" colspan='3'><a href='#'>首頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <select onchange="javascript:submitback('index.php?type=cancel_appointment_list&page='+ this.options[this.selectedIndex].value)">
+      <td width="" class="title" colspan='3'><a href='#'>首頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <select onchange="javascript:submitback('/ourstudybuddy/${UserType}/cancelappointment_List.do&page='+ this.options[this.selectedIndex].value)">
 	<option value=1 selected>1</option>
 </select> &nbsp;&nbsp;總共有&nbsp;1&nbsp;頁 &nbsp;&nbsp;每頁30&nbsp;條記錄</td>
 	</tr>

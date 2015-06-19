@@ -1,7 +1,11 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.billjc.essay.student.dao.EssayStudentDao" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>åèºç®¡çç³»çµ±</title>
+<title>后臺管理系統</title>
 <link href="../css/index.css" rel="stylesheet" type="text/css" />
 <link href="../css/mains.css" rel="stylesheet" type="text/css" />
 <script charset="utf-8" type="text/javascript" src="../js/jquery.min.js"></script>
@@ -51,7 +55,7 @@ javascript"></script>
 </head>
 <body class="index">
 	<img src="../images/logo.gif"  class="logo"/>
-	<div class="adminBox">歡迎你,TA-Wayne(助教)<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
+	<div class="adminBox">歡迎你,${requestScope.UserNameType}<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
 	<div class="menu">
 					<a href="index.php?ac=cms" class='select' id='menu'>
 						<div class='tableft'></div>
@@ -79,17 +83,22 @@ javascript"></script>
 
 <div class="menu2">
 <a href="#">助教操作</a>
-<div class="menu3 "><a href="index.php?type=student_list">学生管理</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_list">学生预约</a></div>
-<div class="menu3 selected"><a href="index.php?type=appointment_edit">作文预约</a></div>
-<div class="menu3 "><a href="index.php?type=teacher_edit">老师修改数量限制</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=cancel_appointment_list">批量删除预约</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=charge_s_edit">批量充值</a></div>
-<div class="menu3 "><a href="index.php?type=export_edit">导出xls文件</a></div>
-<div class="menu3 "><a href="index.php?type=assistant_edit">配置</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_Edit.do ">注册</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_List.do">学生管理</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_List.do">预约记录</a></div>
+<div class="menu3 selected"><a href="/ourstudybuddy/${UserType}/appointment_Edit.do">预约</a></div>
+<div class="menu3 menu_search_box_div">
+	<input id="fuzzy_search_box"/>
 </div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/teacher_Edit.do">老师修改数量限制</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/cancelappointment_List.do">批量删除预约</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/charge_edit.do">批量充值</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/export_Edit.do">导出xls文件</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/assistant_Edit.do">配置</a></div>
+</div>
+
 
 
 
@@ -126,10 +135,10 @@ javascript"></script>
                         opacity:.70;  
                         filter: alpha(opacity=70);
                     "><div style="color:#999999;font-size:25px;margin-left:auto;margin-right:auto;
-                    	margin-top:100px;text-align:center;">æä»¬æ­£å¨åªåå è½½^_^ï¼ä¸è¿è²ä¼¼ç½éæç¹æ¢#_#ï¼éº»ç¦ç¨ç­ä¸ä¸</div></div>
+                    	margin-top:100px;text-align:center;">我们正在努力加载^_^，不过貌似网速有点慢#_#，麻烦稍等一下</div></div>
 					<div class="workplace" id="Main">
 					 
-						ï»¿
+						﻿
 <div class="workplace_body" >
 <div class="topleft"></div>
 <div class="topright"></div>
@@ -138,7 +147,7 @@ javascript"></script>
 <div class="panelHeader"></div>
 <div class="panelsubmenu">
 <div style="text-align:right;padding-right:20px;">
-		<a href="index.php?type=qiangxing_edit">å¼ºè¡é¢çº¦</a>
+		<a href="index.php?type=qiangxing_edit">强行预约</a>
 	</div>
 </div>
 
@@ -150,65 +159,100 @@ javascript"></script>
     <tr>
         </tr>
         	<tr>
-        	<td style="padding-left:5px;" height="25" align="center"></td>
-                        	<td style="padding-left:5px;" height="25" align="center"><span style="font-size:13px;font-weight:bold;">Aimee</span></td>
-                        	<td style="padding-left:5px;" height="25" align="center"><span style="font-size:13px;font-weight:bold;">Lea</span></td>
-                        	<td style="padding-left:5px;" height="25" align="center"><span style="font-size:13px;font-weight:bold;">Marion</span></td>
-                        	<td style="padding-left:5px;" height="25" align="center"><span style="font-size:13px;font-weight:bold;">Bev</span></td>
-                        	<td style="padding-left:5px;" height="25" align="center"><span style="font-size:13px;font-weight:bold;">Jamie(ä¸­æ)</span></td>
+			<c:forEach var="Thrlist" items="${TeacherList}">
+                        	<td style="padding-left:5px;" height="25" align="center">
+            		<span style="font-size:13px;font-weight:bold;">
+			${Thrlist}
+			</span>
+            	</td>
+			</c:forEach>
+                    </tr> 	
+        	<tr>
+            <!--<td style="padding-left:5px;" height="25" align="center" rowspan="3">Jamie(中教)</td>-->
+           <%
+				Calendar calendar=Calendar.getInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+				int dateIndex;
+				dateIndex = calendar.get(Calendar.DAY_OF_WEEK);
+		   %>
+            <td style="padding-left:5px;" height="25" align="center">
+            	<span style="font-size:13px;font-weight:bold;">今天</span>
+                <br/>
+				<%
+					String TodayD = sdf.format( calendar.getTime() );
+					out.println(TodayD);
+				%>                <br/>
+                <%
+				dateIndex = dateIndex - 1 ; 
+				out.println( weekDays[ dateIndex ] );
+				%>            </td>
+				<c:forEach var="day1appt" items="${Teacherday1appt}">
+					<td style="padding-left:5px;" height="25" align="center">${day1appt}<br></td>
+				</c:forEach>
+<!--
+				<td style="padding-left:5px;" height="25" align="center">约满</td>
+                        	<td style="padding-left:5px;" height="25" align="center">约满</td>
+                        	<td style="padding-left:5px;" height="25" align="center">休假中</td> -->
                     </tr>
         	<tr>
-            <!--<td style="padding-left:5px;" height="25" align="center" rowspan="3">Jamie(ä¸­æ)</td>-->
+            <!--<td style="padding-left:5px;" height="25" align="center" rowspan="3">Jamie(中教)</td>-->
            
             <td style="padding-left:5px;" height="25" align="center">
-            	<span style="font-size:13px;font-weight:bold;">ä»å¤©</span>
+            	<span style="font-size:13px;font-weight:bold;">明天</span>
                 <br/>
-				2014-05-24                <br/>
-                ææå­            </td>
-                        	<td style="padding-left:5px;" height="25" align="center">ä¼åä¸­</td>
-                        	<td style="padding-left:5px;" height="25" align="center">ä¼åä¸­</td>
-                        	<td style="padding-left:5px;" height="25" align="center">ä¼åä¸­</td>
-                        	<td style="padding-left:5px;" height="25" align="center">ä¼åä¸­</td>
-                        	<td style="padding-left:5px;" height="25" align="center">çº¦æ»¡</td>
+				<%
+					calendar=Calendar.getInstance();
+					calendar.roll(Calendar.DAY_OF_YEAR,1);
+					String TmrD = sdf.format( calendar.getTime() );
+					out.println(TmrD);
+				%>                <br/>
+                <%
+				dateIndex = dateIndex + 1;
+				dateIndex = dateIndex / 7 + dateIndex % 7;
+				out.println( weekDays[dateIndex] );
+				%>            </td>
+				<c:forEach var="day2appt" items="${Teacherday2appt}">
+					<td style="padding-left:5px;" height="25" align="center">${day2appt}<br></td>
+				</c:forEach>
+                        	<!--<td style="padding-left:5px;" height="25" align="center">约满</td>
+                        	<td style="padding-left:5px;" height="25" align="center">约满</td>
+                        	<td style="padding-left:5px;" height="25" align="center">约满</td>-->
                     </tr>
         	<tr>
-            <!--<td style="padding-left:5px;" height="25" align="center" rowspan="3">Jamie(ä¸­æ)</td>-->
+            <!--<td style="padding-left:5px;" height="25" align="center" rowspan="3">Jamie(中教)</td>-->
            
             <td style="padding-left:5px;" height="25" align="center">
-            	<span style="font-size:13px;font-weight:bold;">æå¤©</span>
+            	<span style="font-size:13px;font-weight:bold;">后天</span>
                 <br/>
-				2014-05-25                <br/>
-                æææ¥            </td>
-                        	<td style="padding-left:5px;" height="25" align="center">çº¦æ»¡</td>
-                        	<td style="padding-left:5px;" height="25" align="center">çº¦æ»¡</td>
-                        	<td style="padding-left:5px;" height="25" align="center"><a href='index.php?type=make_appointment_edit&teacher_id=8&date=2014-05-25'>é¢çº¦</a><br>ï¼æå1,2ç¯ï¼</td>
-                        	<td style="padding-left:5px;" height="25" align="center">ä¼åä¸­</td>
-                        	<td style="padding-left:5px;" height="25" align="center"><a href='index.php?type=make_appointment_edit&teacher_id=11&date=2014-05-25'>é¢çº¦</a></td>
-                    </tr>
-        	<tr>
-            <!--<td style="padding-left:5px;" height="25" align="center" rowspan="3">Jamie(ä¸­æ)</td>-->
-           
-            <td style="padding-left:5px;" height="25" align="center">
-            	<span style="font-size:13px;font-weight:bold;">åå¤©</span>
-                <br/>
-				2014-05-26                <br/>
-                ææä¸            </td>
-                        	<td style="padding-left:5px;" height="25" align="center"><a href='index.php?type=make_appointment_edit&teacher_id=1&date=2014-05-26'>é¢çº¦</a></td>
-                        	<td style="padding-left:5px;" height="25" align="center">çº¦æ»¡</td>
-                        	<td style="padding-left:5px;" height="25" align="center"><a href='index.php?type=make_appointment_edit&teacher_id=8&date=2014-05-26'>é¢çº¦</a></td>
-                        	<td style="padding-left:5px;" height="25" align="center">ä¼åä¸­</td>
-                        	<td style="padding-left:5px;" height="25" align="center"><a href='index.php?type=make_appointment_edit&teacher_id=11&date=2014-05-26'>é¢çº¦</a></td>
+				<%
+					calendar=Calendar.getInstance();
+					calendar.roll(Calendar.DAY_OF_YEAR,2);
+					String DayAfTmrW = sdf.format( calendar.getTime() );
+					out.println(DayAfTmrW);
+				%>                <br/>
+                                <%
+				dateIndex = dateIndex + 1;
+				dateIndex = dateIndex / 7 + dateIndex % 7;
+				out.println( weekDays[dateIndex] );
+				%>            </td>
+				<c:forEach var="day3appt" items="${Teacherday3appt}">
+					<td style="padding-left:5px;" height="25" align="center">${day3appt}<br></td>
+				</c:forEach>
+<!--                        	<td style="padding-left:5px;" height="25" align="center">约满</td>
+                        	<td style="padding-left:5px;" height="25" align="center">约满</td>
+                        	<td style="padding-left:5px;" height="25" align="center">休假中</td>-->
                     </tr>
         <!--<tr style="height:20px;"><td colspan="2"></td></tr>-->
    
    
 </table>
-<table width="100%" border="0" cellspacing="0">
+<table width="100%" border="0" cellspacing="0" style="display:none;">
 	<tr colspan="4" height="10"></tr>
     <tr>
       <td width="220" height="30" align='left'></td>
-      <td width="" class="title" colspan='3'><a href=?page=1>é¦é </a>&nbsp;&nbsp;&nbsp;&nbsp; <a href=?page=-1>ä¸ä¸é </a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>ä¸ä¸é </a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>æ«é </a>&nbsp;&nbsp;&nbsp;&nbsp; <select onchange="javascript:submitback('?page='+ this.options[this.selectedIndex].value)">
-</select> &nbsp;&nbsp;ç¸½å±æ&nbsp;&nbsp;é  &nbsp;&nbsp;æ¯é &nbsp;æ¢è¨é</td>
+      <td width="" class="title" colspan='3'><a href=?page=1>首頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href=?page=-1>上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <select onchange="javascript:submitback('?page='+ this.options[this.selectedIndex].value)">
+</select> &nbsp;&nbsp;總共有&nbsp;&nbsp;頁 &nbsp;&nbsp;每頁&nbsp;條記錄</td>
 	</tr>
 	<tr colspan="4" height="10"></tr>
 </table>

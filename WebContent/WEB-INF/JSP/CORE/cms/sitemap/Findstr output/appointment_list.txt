@@ -1,0 +1,44 @@
+<link href="../css/index.css" rel="stylesheet" type="text/css" />
+<link href="../css/mains.css" rel="stylesheet" type="text/css" />
+<link href="../css/mycss.css" rel="stylesheet" type="text/css" />
+<link href="../css/jquery.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../css/validationEngine.jquery.css" type="text/css"/>
+	<div class="adminBox">歡迎你,TA-Wayne(助教)<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
+					<a href="index.php?ac=cms" class='select' id='menu'>
+					<a href="index.php?ac=set" class='' id='menu'>
+<a href="#">助教操作</a>
+<div class="menu3 "><a href="index.php?type=student_edit&backType=student_list">注册</a></div>
+<div class="menu3 "><a href="index.php?type=student_list">学生管理</a></div>
+<div class="menu3 selected"><a href="index.php?type=appointment_list">预约记录</a></div>
+<div class="menu3 "><a href="index.php?type=appointment_edit">预约</a></div>
+<div class="menu3 "><a href="index.php?type=teacher_edit">老师修改数量限制</a></div>
+	href="index.php?type=cancel_appointment_list">批量删除预约</a></div>
+	href="index.php?type=charge_s_edit">批量充值</a></div>
+<div class="menu3 "><a href="index.php?type=export_edit">导出xls文件</a></div>
+<div class="menu3 "><a href="index.php?type=assistant_edit">配置</a></div>
+						<div class="panelHeader" ><span id="fishboxTitle"></span><a href="javascript:closeFishbox();" style="float:right;">Close</a></div>
+		<a href="#" id="sendSmsBtn">通知已经发回</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12168">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12168','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task2作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12163">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12163','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task2作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12121">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12121','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task2作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12122">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12122','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task2作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12157">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12157','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task2作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12120">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12120','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task1作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12118">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12118','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task1作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12130">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12130','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task2作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12149">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12149','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task2作文，请确认');">取消预约</a>
+                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=12117">取消预约</a>-->
+           <a href="javascript:do_function('delete_appointment','12117','index.php?type=appointment_list','即将为您取消2014-09-07的一篇task2作文，请确认');">取消预约</a>
+        <td style="padding-left:5px;" height="25" align="center"><a href="index.php?type=appointment_edit&backType=appointment_list&editId=1">取消预约</a></td>
+        <td style="padding-left:5px;" height="25" align="center"><a href="index.php?type=appointment_edit&backType=appointment_list&editId=1">取消预约</a></td>
+        <td style="padding-left:5px;" height="25" align="center"><a href="index.php?type=appointment_edit&backType=appointment_list&editId=1">取消预约</a></td>
+      <td width="" class="title" colspan='3'><a href='#'>首頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <select onchange="javascript:submitback('index.php?type=appointment_list&page='+ this.options[this.selectedIndex].value)">

@@ -121,18 +121,16 @@ function submitform(actionurl,returl,checkjs){
 						
 						//alert(data.indexOf("恭喜你"));
 						if(data.indexOf("恭喜你") > -1){
-							$.ajax({
-								url:'do/do_function.php?type='+type+'&f_name=get_link',
-								success:function(link_to){
-									//alert(link_to);
-									//alert(data);
-									//location.href=link_to;
-									//window.open(link_to);
-									$("#alert_box .text").html(data+"<br><br><a href='"
-										+link_to+"' target='_blank'>"+link_to+"</a>");
-									$("#alert_box").show();
-								}
-							});
+							//$.ajax({
+							//	url:'do/do_function.php?type='+type+'&f_name=get_link',
+							//	success:function(link_to){
+							//		$("#alert_box .text").html(data+"<br><br><a href='"
+							//			+link_to+"' target='_blank'>"+link_to+"</a>");
+							//		$("#alert_box").show();
+							//	}
+							//});
+							$("#alert_box .text").html(data);
+							$("#alert_box").show();
 							$("#mask").hide();
 							return;
 						}
@@ -176,6 +174,13 @@ function common_del(table,id,returnUrl){
 	}
 }
 
+/**
+ * 执行异步操作
+ * @param f_name 异步操作的方法名，详细查看/teach3/cms/sitemap/do/do_function.php中的方法
+ * @param id 要传过去的id，接受的参数名将会是id
+ * @param returnUrl 执行成功后，跳转页面，空字符串不跳转
+ * @param alertMsg 执行前提示内容，无则不提示
+ */
 function do_function(f_name,id,returnUrl,alertMsg){
 	if(alertMsg != '' && alertMsg!=undefined && alertMsg!='undefined'){
 		if(confirm(alertMsg)){
@@ -183,7 +188,9 @@ function do_function(f_name,id,returnUrl,alertMsg){
 				url:'do/do_function.php?do_id='+id+'&f_name='+f_name,
 				success:function(data){
 					alert(data);
-					location.href=returnUrl;
+					if(returnUrl != ""){
+						location.href=returnUrl;
+					}
 				}
 			});
 		}
@@ -192,7 +199,9 @@ function do_function(f_name,id,returnUrl,alertMsg){
 			url:'do/do_function.php?do_id='+id+'&f_name='+f_name,
 			success:function(data){
 				alert(data);
-				location.href=returnUrl;
+				if(returnUrl != ""){
+					location.href=returnUrl;
+				}
 			}
 		});
 	}
@@ -363,5 +372,37 @@ $(document).ready(function(){
 			$($("[name=check]")[i]).attr("checked",el.attr("checked") );
 		}
 	});
+
+	//左侧菜单搜索框，搜索事件
+	jQuery("#fuzzy_search_box").keyup(function (event) {
+	    keycode = event.which;
+	    if (keycode == 13) { //按下回车键，触发搜索
+	        jQuery("#fuzzy_search_box").blur();
+	        location.href="index.php?type=fuzzy_student_edit&keyword=" + jQuery("#fuzzy_search_box").val();
+	    }
+ 	});
+ 	
+ 	jQuery("#sendSmsBtn").click(function(){
+ 		var check_value = "";
+ 		var check_arr = document.getElementsByName("check_single");
+ 		for(var i=0;i<check_arr.length;i++){
+ 			if(jQuery(check_arr[i]).attr("checked")){
+ 				check_value = check_value + "," + check_arr[i].value;
+ 			}
+ 		}
+ 		if(check_value==''){
+ 			alert("请选择要发回的学生");
+ 			return;
+ 		}
+ 		do_function("send_sms_return",check_value,"", "是否发送短信到被选中学生？");
+ 	});
+ 	
+ 	jQuery("#check_all").click(function(){
+ 		if(jQuery("#check_all").attr("checked")){
+ 			jQuery("[name=check_single]").attr("checked", true);
+ 		}else{
+ 			jQuery("[name=check_single]").attr("checked", false);
+ 		}
+ 	});
 });
 //-----------------assistant----------------------------

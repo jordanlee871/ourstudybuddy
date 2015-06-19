@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.billjc.essay.student.dao.EssayStudentDao" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>后臺管理系統</title>
@@ -51,7 +54,7 @@ javascript"></script>
 </head>
 <body class="index">
 	<img src="../images/logo.gif"  class="logo"/>
-	<div class="adminBox">歡迎你,TA-Wayne(助教)<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
+	<div class="adminBox">歡迎你,${requestScope.UserNameType}<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
 	<div class="menu">
 					<a href="index.php?ac=cms" class='select' id='menu'>
 						<div class='tableft'></div>
@@ -79,17 +82,22 @@ javascript"></script>
 
 <div class="menu2">
 <a href="#">助教操作</a>
-<div class="menu3 "><a href="index.php?type=student_list">学生管理</a></div>
-<div class="menu3 selected"><a href="index.php?type=appointment_list">学生预约</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_edit">作文预约</a></div>
-<div class="menu3 "><a href="index.php?type=teacher_edit">老师修改数量限制</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=cancel_appointment_list">批量删除预约</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=charge_s_edit">批量充值</a></div>
-<div class="menu3 "><a href="index.php?type=export_edit">导出xls文件</a></div>
-<div class="menu3 "><a href="index.php?type=assistant_edit">配置</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_Edit.do ">注册</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_List.do">学生管理</a></div>
+<div class="menu3 selected"><a href="/ourstudybuddy/${UserType}/appointment_List.do">预约记录</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_Edit.do">预约</a></div>
+<div class="menu3 menu_search_box_div">
+	<input id="fuzzy_search_box"/>
 </div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/teacher_Edit.do">老师修改数量限制</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/cancelappointment_List.do">批量删除预约</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/charge_edit.do">批量充值</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/export_Edit.do">导出xls文件</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/assistant_Edit.do">配置</a></div>
+</div>
+
 
 
 
@@ -135,16 +143,20 @@ javascript"></script>
 <div class="topright"></div>
 <div class="buttomleft"></div>
 <div class="buttomright"></div>
-<div class="panelHeader">学生预约</div>
+<div class="panelHeader">预约记录</div>
 <div class="panelsubmenu">
 <div style="text-align:right;padding-right:20px;">
-		<a href="index.php?type=appointment_edit&backType=appointment_list">新添</a>
-	</div>
+		<a href="#" id="sendSmsBtn">通知已经发回</a>
+</div>
 </div>
 <table width="100%" border="0" cellspacing="0" style='color:#4F5D66;'>
 	<br/>
     <tr>
-    	
+    <td style="padding-left:5px;" height="25" align="center" >
+    	<span class="title">
+    		<input type="checkbox" class="checkbox" name="check_all" id="check_all"/>
+		</span>
+    </td>
     			<td style="padding-left:5px;" height="25" align="center" width='6%'><span class="title">date</span></td>
    				<td style="padding-left:5px;" height="25" align="center" width='5%'><span class="title">student</span></td>
    				<td style="padding-left:5px;" height="25" align="center" width='5%'><span class="title">task</span></td>
@@ -155,8 +167,9 @@ javascript"></script>
    	    </tr>
 	<!-- <tr height='15'><td colspan=''></td></tr>-->
    <!-- -->
-       <tr height='15'>
+    <tr height='15'>
     	<form action="index.php" method="post">
+    		<td></td>
             <td style="padding-left:5px;" height="25" align="center"><input type="hidden" value="appointment_list" name="type"/>
             	<input style="width:70px" name="date"
              value="" onclick="WdatePicker({lang:'zh-tw',dateFmt:'yyyy-MM-dd'});"/></td> 
@@ -166,25 +179,20 @@ javascript"></script>
             value=""/></td> 
             <td style="padding-left:5px;" height="25" align="center"><input style="width:30px" name="cycle" 
             value=""/></td> 
-            <td></td>
+            <td style="padding-left:5px;" height="25" align="center"><input style="width:200px" name="email" 
+            value=""/></td>
             <td style="padding-left:5px;" height="25" align="center"><input style="width:100px" name="teacher_name_en" 
             value=""/></td> 
             <td style="padding-left:5px;" height="25" align="center"><input value="搜索" type="submit"/><br />
             	</td>
         </form>
     </tr>
-        <tr>
-		<td style="padding-left:5px;" height="25" align="center">2014-05-24</td>
-        <td style="padding-left:5px;" height="25" align="center">happyfang2008_love</td>
-        <td style="padding-left:5px;" height="25" align="center">task1</td>
-        <td style="padding-left:5px;" height="25" align="center">10</td>
-        <td style="padding-left:5px;" height="25" align="center">happyfang2008.love@163.com-task1-cycle10-Jamie(中教)</td>
-        <td style="padding-left:5px;" height="25" align="center">Jamie(中教)</td>
-        <td style="padding-left:5px;" height="25" align="center">
-                   <!--<a href="do/do_function.php?f_name=delete_appointment&editId=10240">取消预约</a>-->
-           <a href="javascript:do_function('delete_appointment','10240','index.php?type=appointment_list','即将为您取消2014-05-24的一篇task1作文，请确认');">取消预约</a>
-                </td>
-    </tr>
+	
+	<c:forEach var="apptlist" items="${apptrecordList}">
+	<tr>
+	${apptlist}
+	</tr>
+	</c:forEach>
          <!--<tr>
 		<td style="padding-left:5px;" height="25" align="center">2012/7/11</td>
         <td style="padding-left:5px;" height="25" align="center">task1</td>
@@ -204,21 +212,21 @@ javascript"></script>
         <td style="padding-left:5px;" height="25" align="center">task1</td>
         <td style="padding-left:5px;" height="25" align="center">1</td>
         <td style="padding-left:5px;" height="25" align="center">teacherA</td>
-        <td style="padding-left:5px;" height="25" align="center"><a href="index.php?type=appointment_edit&backType=appointment_list&editId=1">取消预约</a></td>
+        <td style="padding-left:5px;" height="25" align="center"><a href="/ourstudybuddy/${UserType}/appointment_Edit.do&backType=appointment_list&editId=1">取消预约</a></td>
     </tr>
      <tr>
 		<td style="padding-left:5px;" height="25" align="center">2012/7/11</td>
         <td style="padding-left:5px;" height="25" align="center">task1</td>
         <td style="padding-left:5px;" height="25" align="center">1</td>
         <td style="padding-left:5px;" height="25" align="center">teacherA</td>
-        <td style="padding-left:5px;" height="25" align="center"><a href="index.php?type=appointment_edit&backType=appointment_list&editId=1">取消预约</a></td>
+        <td style="padding-left:5px;" height="25" align="center"><a href="/ourstudybuddy/${UserType}/appointment_Edit.do&backType=appointment_list&editId=1">取消预约</a></td>
     </tr>
      <tr>
 		<td style="padding-left:5px;" height="25" align="center">2012/7/11</td>
         <td style="padding-left:5px;" height="25" align="center">task1</td>
         <td style="padding-left:5px;" height="25" align="center">1</td>
         <td style="padding-left:5px;" height="25" align="center">teacherA</td>
-        <td style="padding-left:5px;" height="25" align="center"><a href="index.php?type=appointment_edit&backType=appointment_list&editId=1">取消预约</a></td>
+        <td style="padding-left:5px;" height="25" align="center"><a href="/ourstudybuddy/${UserType}/appointment_Edit.do&backType=appointment_list&editId=1">取消预约</a></td>
     </tr>-->
    
 </table>
@@ -226,13 +234,14 @@ javascript"></script>
 	<tr colspan="4" height="10"></tr>
     <tr>
       <td width="220" height="30" align='left'></td>
-      <td width="" class="title" colspan='3'><a href='#'>首頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <select onchange="javascript:submitback('index.php?type=appointment_list&page='+ this.options[this.selectedIndex].value)">
+      <td width="" class="title" colspan='3'><a href='#'>首頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>下一頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href='#'>末頁</a>&nbsp;&nbsp;&nbsp;&nbsp; <select onchange="javascript:submitback('/ourstudybuddy/${UserType}/student_List.do&page='+ this.options[this.selectedIndex].value)">
 	<option value=1 selected>1</option>
-</select> &nbsp;&nbsp;總共有&nbsp;1&nbsp;頁 &nbsp;&nbsp;每頁30&nbsp;條記錄</td>
+</select> &nbsp;&nbsp;總共有&nbsp;1&nbsp;頁 &nbsp;&nbsp;每頁100&nbsp;條記錄</td>
 	</tr>
 	<tr colspan="4" height="10"></tr>
 </table>
-</div>					 </div>
+</div>
+					 </div>
 				 </div>
 		 	   </td>
 			</tr>

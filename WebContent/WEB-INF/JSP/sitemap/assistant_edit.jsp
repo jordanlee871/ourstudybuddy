@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.billjc.essay.student.dao.EssayStudentDao" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>后臺管理系統</title>
@@ -51,7 +54,7 @@ javascript"></script>
 </head>
 <body class="index">
 	<img src="../images/logo.gif"  class="logo"/>
-	<div class="adminBox">歡迎你,TA-Wayne(助教)<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
+	<div class="adminBox">歡迎你,${requestScope.UserNameType}<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
 	<div class="menu">
 					<a href="index.php?ac=cms" class='select' id='menu'>
 						<div class='tableft'></div>
@@ -79,17 +82,22 @@ javascript"></script>
 
 <div class="menu2">
 <a href="#">助教操作</a>
-<div class="menu3 "><a href="index.php?type=student_list">学生管理</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_list">学生预约</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_edit">作文预约</a></div>
-<div class="menu3 "><a href="index.php?type=teacher_edit">老师修改数量限制</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=cancel_appointment_list">批量删除预约</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=charge_s_edit">批量充值</a></div>
-<div class="menu3 "><a href="index.php?type=export_edit">导出xls文件</a></div>
-<div class="menu3 selected"><a href="index.php?type=assistant_edit">配置</a></div>
+<div class="menu3 selected"><a href="/ourstudybuddy/${UserType}/student_Edit.do ">注册</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_List.do">学生管理</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_List.do">预约记录</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_Edit.do">预约</a></div>
+<div class="menu3 menu_search_box_div">
+	<input id="fuzzy_search_box"/>
 </div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/teacher_Edit.do">老师修改数量限制</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/cancelappointment_List.do">批量删除预约</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/charge_edit.do">批量充值</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/export_Edit.do">导出xls文件</a></div>
+<div class="menu3 selected"><a href="/ourstudybuddy/${UserType}/assistant_Edit.do">配置</a></div>
+</div>
+
 
 
 
@@ -181,7 +189,7 @@ javascript"></script>
 	<tr>
          <td width="120" height="35" class="title"></td>
 		 <td>
-		 	<input type="submit" class="commmonBtn" value="保存" onclick="submitform('do/do_AddCommmon.php?tag=1','index.php?type=assistant_edit');">&nbsp;&nbsp;
+		 	<input type="submit" class="commmonBtn" value="保存" onclick="submitform('do/do_AddCommmon.php?tag=1','/ourstudybuddy/${UserType}/assistant_Edit.do');">&nbsp;&nbsp;
 		 </td>
     </tr>
 </table>

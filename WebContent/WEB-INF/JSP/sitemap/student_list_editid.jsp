@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.billjc.essay.student.dao.Student" %>
+<%@ page import="com.billjc.essay.student.dao.EssayStudentDao" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,8 +16,7 @@
 <link href="../css/mycss.css" rel="stylesheet" type="text/css" />
 <link href="../css/jquery.css" rel="stylesheet" type="text/css" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js" type="text/
-javascript"></script>
+<!--<script src="../js/jquery.js" type="text/javascript"></script>-->
 <link rel="stylesheet" href="../css/validationEngine.jquery.css" type="text/css"/>
 <script src="../js/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
 <script src="../js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
@@ -54,7 +53,7 @@ javascript"></script>
 </head>
 <body class="index">
 	<img src="../images/logo.gif"  class="logo"/>
-	<div class="adminBox">歡迎你,TA-Wayne(助教)<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
+	<div class="adminBox">歡迎你,${requestScope.UserNameType}<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
 	<div class="menu">
 					<a href="index.php?ac=cms" class='select' id='menu'>
 						<div class='tableft'></div>
@@ -82,20 +81,20 @@ javascript"></script>
 
 <div class="menu2">
 <a href="#">助教操作</a>
-<div class="menu3 "><a href="index.php?type=student_edit&backType=student_list">注册</a></div>
-<div class="menu3 "><a href="index.php?type=student_list">学生管理</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_list">预约记录</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_edit">预约</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_Edit.do ">注册</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_List.do">学生管理</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_List.do">预约记录</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_Edit.do">预约</a></div>
 <div class="menu3 menu_search_box_div">
 	<input id="fuzzy_search_box"/>
 </div>
-<div class="menu3 "><a href="index.php?type=teacher_edit">老师修改数量限制</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/teacher_Edit.do">老师修改数量限制</a></div>
 <div class="menu3 "><a 
-	href="index.php?type=cancel_appointment_list">批量删除预约</a></div>
+	href="/ourstudybuddy/${UserType}/cancelappointment_List.do">批量删除预约</a></div>
 <div class="menu3 "><a 
-	href="index.php?type=charge_s_edit">批量充值</a></div>
-<div class="menu3 "><a href="index.php?type=export_edit">导出xls文件</a></div>
-<div class="menu3 "><a href="index.php?type=assistant_edit">配置</a></div>
+	href="/ourstudybuddy/${UserType}/charge_edit.do">批量充值</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/export_Edit.do">导出xls文件</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/assistant_Edit.do">配置</a></div>
 </div>
 
 
@@ -151,7 +150,7 @@ javascript"></script>
 <br/>
 <form id="viewLinkForm" action="do/do_EditCommmon.php" method="POST" enctype="multipart/form-data">
 	<input type="hidden" name="table" value="com_member">
-    <input type="hidden" name="editId" value="2236">  
+    <input type="hidden" name="editId" value="2602">  
 	<input type="hidden" name="assistant_id" value="20"/>
     <input type="hidden" name="role" value="student"/>
 
@@ -181,19 +180,19 @@ javascript"></script>
 	<tr>
        <td width="120" height="35" class="title">是否启用:<font color="#FF0000">&nbsp;</font></td>
        		<td><input type="radio" value="1" name="active" checked   />是&nbsp;&nbsp;
-        <input type="radio" value="0" name="active" />否</td>
+        <input type="radio" value="${StudentInfor.active}" name="active" />否</td>
     </tr>
 	
 	
 	<tr>
          <td width="120" height="35" class="title"></td>
 		 <td>
-		 	<input type="submit" name="publish" class="commmonBtn" value="Save" onClick="submitform('do/do_EditCommmon.php?tag=1','index.php?type=student_list&page=1');">&nbsp;&nbsp;
-			<input type="button" name="back" class="commmonBtn" value="Back" onClick="submitback('index.php?type=student_list&page=1');">
-                        <input type="button" name="charge" class="commmonBtn" value="充值" onClick="editFunction('index.php?type=charge_edit&backType=student_list&editId=2236');">
-                        <input type="button" name="charge" class="commmonBtn" value="作文记录" onClick="editFunction('index.php?type=appointment_list&student_id=2236');">
-                        <input type="button" name="charge" class="commmonBtn" value="退款" onClick="do_function('do_refund','2236',
-            'index.php?type=student_edit&backType=student_list&editId=2236','即将为学生soliloquy28退款，请确认');">
+		 	<input type="submit" name="publish" class="commmonBtn" value="Save" onClick="submitform('do/do_EditCommmon.php?tag=1','/ourstudybuddy/${UserType}/student_List.do&page=1');">&nbsp;&nbsp;
+			<input type="button" name="back" class="commmonBtn" value="Back" onClick="submitback('/ourstudybuddy/${UserType}/student_List.do&page=1');">
+                        <input type="button" name="charge" class="commmonBtn" value="充值" onClick="editFunction('index.php?type=charge_edit&backType=student_list&editId=2602');">
+                        <input type="button" name="charge" class="commmonBtn" value="作文记录" onClick="editFunction('/ourstudybuddy/${UserType}/student_List.do&student_id=2602');">
+                        <input type="button" name="charge" class="commmonBtn" value="退款" onClick="do_function('do_refund','2602',
+            '/ourstudybuddy/${UserType}/student_Edit.do &editId=2602','即将为学生白小白qaq退款，请确认');">
             		 </td>
     </tr>
 </table>

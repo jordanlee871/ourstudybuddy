@@ -1,7 +1,9 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.billjc.essay.student.dao.EssayStudentDao" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<META http-equiv=Content-Type content="text/html; charset=utf-8">
 <head>
 <title>后臺管理系統</title>
 <link href="../css/index.css" rel="stylesheet" type="text/css" />
@@ -53,7 +55,7 @@ javascript"></script>
 </head>
 <body class="index">
 	<img src="../images/logo.gif"  class="logo"/>
-	<div class="adminBox">歡迎你,TA-Wayne(助教)<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
+	<div class="adminBox">歡迎你,${requestScope.UserNameType}<a href="../logout.php"><img src="../images/logoutbtn.gif" border="0"  class="logout"/></a></div>
 	<div class="menu">
 					<a href="index.php?ac=cms" class='select' id='menu'>
 						<div class='tableft'></div>
@@ -81,17 +83,22 @@ javascript"></script>
 
 <div class="menu2">
 <a href="#">助教操作</a>
-<div class="menu3 "><a href="index.php?type=student_list">学生管理</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_list">学生预约</a></div>
-<div class="menu3 "><a href="index.php?type=appointment_edit">作文预约</a></div>
-<div class="menu3 selected"><a href="index.php?type=teacher_edit">老师修改数量限制</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=cancel_appointment_list">批量删除预约</a></div>
-<div class="menu3 "><a 
-	href="index.php?type=charge_s_edit">批量充值</a></div>
-<div class="menu3 "><a href="index.php?type=export_edit">导出xls文件</a></div>
-<div class="menu3 "><a href="index.php?type=assistant_edit">配置</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_Edit.do ">注册</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/student_List.do">学生管理</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_List.do">预约记录</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/appointment_Edit.do">预约</a></div>
+<div class="menu3 menu_search_box_div">
+	<input id="fuzzy_search_box"/>
 </div>
+<div class="menu3 selected"><a href="/ourstudybuddy/${UserType}/teacher_Edit.do">老师修改数量限制</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/cancelappointment_List.do">批量删除预约</a></div>
+<div class="menu3 "><a 
+	href="/ourstudybuddy/${UserType}/charge_edit.do">批量充值</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/export_Edit.do">导出xls文件</a></div>
+<div class="menu3 "><a href="/ourstudybuddy/${UserType}/assistant_Edit.do">配置</a></div>
+</div>
+
 
 
 
@@ -153,30 +160,62 @@ javascript"></script>
 	<!-- <tr height='15'><td colspan=''></td></tr>-->
    <!-- -->
     <tr>
+			<%
+				Calendar calendar=Calendar.getInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			%>
     	<td style="padding-left:5px;" height="25" align="center"></td>
-    	    	<td style="padding-left:5px;" height="25" align="center">2014-05-24</td>
-            	<td style="padding-left:5px;" height="25" align="center">2014-05-25</td>
-            	<td style="padding-left:5px;" height="25" align="center">2014-05-26</td>
-            	<td style="padding-left:5px;" height="25" align="center">2014-05-27</td>
+    	    	<td style="padding-left:5px;" height="25" align="center">				
+				<%
+					String TodayD = sdf.format( calendar.getTime() );
+					out.println(TodayD);
+				%>
+				</td>
+            	<td style="padding-left:5px;" height="25" align="center">
+				<%
+					calendar=Calendar.getInstance();
+					calendar.roll(Calendar.DAY_OF_YEAR,1);
+					String TmrD = sdf.format( calendar.getTime() );
+					out.println(TmrD);
+				%>
+				</td>
+            	<td style="padding-left:5px;" height="25" align="center">
+				<%
+					calendar=Calendar.getInstance();
+					calendar.roll(Calendar.DAY_OF_YEAR,2);
+					String DayAfTmrW = sdf.format( calendar.getTime() );
+					out.println(DayAfTmrW);
+				%>				
+				</td>
+            	<td style="padding-left:5px;" height="25" align="center">
+				<%
+					calendar=Calendar.getInstance();
+					calendar.roll(Calendar.DAY_OF_YEAR,3);
+					String DayAfTmrW1 = sdf.format( calendar.getTime() );
+					out.println(DayAfTmrW1);
+				%>				
+				</td>
             </tr>
-        <tr>
+
+<!--
+			<tr>
     	<td style="padding-left:5px;" height="25" align="center">Aimee        <input name="teacher_id[]" value="1" type="hidden"/>
         </td>
         <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_1_1" value="0" size="2" 
+                <input name="app_value_1_1" value="7" size="2" 
        		class="change_input" id="appoint_0_1"/>
-        <input name="app_value_1_1_hidden" value="0" size="2" 
+        <input name="app_value_1_1_hidden" value="7" size="2" 
          	id="hide_appoint_0_1" type="hidden"/>
         </td>
         <td style="padding-left:5px;" height="25" align="center">
-                 <input name="app_value_1_2" value="6" size="2" 
+                 <input name="app_value_1_2" value="7" size="2" 
         	class="change_input" id="appoint_0_2"/>
-        <input name="app_value_1_2_hidden" value="6" size="2" 
+        <input name="app_value_1_2_hidden" value="7" size="2" 
         	id="hide_appoint_0_2" type="hidden"/></td>
         <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_1_3" value="6" size="2" 
+                <input name="app_value_1_3" value="7" size="2" 
         	class="change_input" id="appoint_0_3"/>
-        <input name="app_value_1_3_hidden" value="6" size="2" 
+        <input name="app_value_1_3_hidden" value="7" size="2" 
         	id="hide_appoint_0_3" type="hidden"/></td>
          <td style="padding-left:5px;" height="25" align="center">
                 <input name="app_value_1_4" value="" size="2" 
@@ -188,20 +227,20 @@ javascript"></script>
     	<td style="padding-left:5px;" height="25" align="center">Lea        <input name="teacher_id[]" value="2" type="hidden"/>
         </td>
         <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_2_1" value="0" size="2" 
+                <input name="app_value_2_1" value="3" size="2" 
        		class="change_input" id="appoint_1_1"/>
-        <input name="app_value_2_1_hidden" value="0" size="2" 
+        <input name="app_value_2_1_hidden" value="3" size="2" 
          	id="hide_appoint_1_1" type="hidden"/>
         </td>
         <td style="padding-left:5px;" height="25" align="center">
-                 <input name="app_value_2_2" value="5" size="2" 
+                 <input name="app_value_2_2" value="3" size="2" 
         	class="change_input" id="appoint_1_2"/>
-        <input name="app_value_2_2_hidden" value="5" size="2" 
+        <input name="app_value_2_2_hidden" value="3" size="2" 
         	id="hide_appoint_1_2" type="hidden"/></td>
         <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_2_3" value="5" size="2" 
+                <input name="app_value_2_3" value="3" size="2" 
         	class="change_input" id="appoint_1_3"/>
-        <input name="app_value_2_3_hidden" value="5" size="2" 
+        <input name="app_value_2_3_hidden" value="3" size="2" 
         	id="hide_appoint_1_3" type="hidden"/></td>
          <td style="padding-left:5px;" height="25" align="center">
                 <input name="app_value_2_4" value="" size="2" 
@@ -210,86 +249,37 @@ javascript"></script>
         	id="hide_appoint_1_4" type="hidden"/></td>
     </tr>
 	    <tr>
-    	<td style="padding-left:5px;" height="25" align="center">Marion        <input name="teacher_id[]" value="8" type="hidden"/>
-        </td>
-        <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_8_1" value="0" size="2" 
-       		class="change_input" id="appoint_2_1"/>
-        <input name="app_value_8_1_hidden" value="0" size="2" 
-         	id="hide_appoint_2_1" type="hidden"/>
-        </td>
-        <td style="padding-left:5px;" height="25" align="center">
-                 <input name="app_value_8_2" value="4" size="2" 
-        	class="change_input" id="appoint_2_2"/>
-        <input name="app_value_8_2_hidden" value="4" size="2" 
-        	id="hide_appoint_2_2" type="hidden"/></td>
-        <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_8_3" value="4" size="2" 
-        	class="change_input" id="appoint_2_3"/>
-        <input name="app_value_8_3_hidden" value="4" size="2" 
-        	id="hide_appoint_2_3" type="hidden"/></td>
-         <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_8_4" value="" size="2" 
-        	class="change_input" id="appoint_2_4"/>
-        <input name="app_value_8_4_hidden" value="" size="2" 
-        	id="hide_appoint_2_4" type="hidden"/></td>
-    </tr>
-	    <tr>
-    	<td style="padding-left:5px;" height="25" align="center">Bev        <input name="teacher_id[]" value="10" type="hidden"/>
-        </td>
-        <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_10_1" value="0" size="2" 
-       		class="change_input" id="appoint_3_1"/>
-        <input name="app_value_10_1_hidden" value="0" size="2" 
-         	id="hide_appoint_3_1" type="hidden"/>
-        </td>
-        <td style="padding-left:5px;" height="25" align="center">
-                 <input name="app_value_10_2" value="0" size="2" 
-        	class="change_input" id="appoint_3_2"/>
-        <input name="app_value_10_2_hidden" value="0" size="2" 
-        	id="hide_appoint_3_2" type="hidden"/></td>
-        <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_10_3" value="0" size="2" 
-        	class="change_input" id="appoint_3_3"/>
-        <input name="app_value_10_3_hidden" value="0" size="2" 
-        	id="hide_appoint_3_3" type="hidden"/></td>
-         <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_10_4" value="" size="2" 
-        	class="change_input" id="appoint_3_4"/>
-        <input name="app_value_10_4_hidden" value="" size="2" 
-        	id="hide_appoint_3_4" type="hidden"/></td>
-    </tr>
-	    <tr>
     	<td style="padding-left:5px;" height="25" align="center">Jamie(中教)        <input name="teacher_id[]" value="11" type="hidden"/>
         </td>
         <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_11_1" value="1" size="2" 
-       		class="change_input" id="appoint_4_1"/>
-        <input name="app_value_11_1_hidden" value="1" size="2" 
-         	id="hide_appoint_4_1" type="hidden"/>
+                <input name="app_value_11_1" value="0" size="2" 
+       		class="change_input" id="appoint_2_1"/>
+        <input name="app_value_11_1_hidden" value="0" size="2" 
+         	id="hide_appoint_2_1" type="hidden"/>
         </td>
         <td style="padding-left:5px;" height="25" align="center">
-                 <input name="app_value_11_2" value="5" size="2" 
-        	class="change_input" id="appoint_4_2"/>
-        <input name="app_value_11_2_hidden" value="5" size="2" 
-        	id="hide_appoint_4_2" type="hidden"/></td>
+                 <input name="app_value_11_2" value="7" size="2" 
+        	class="change_input" id="appoint_2_2"/>
+        <input name="app_value_11_2_hidden" value="7" size="2" 
+        	id="hide_appoint_2_2" type="hidden"/></td>
         <td style="padding-left:5px;" height="25" align="center">
-                <input name="app_value_11_3" value="5" size="2" 
-        	class="change_input" id="appoint_4_3"/>
-        <input name="app_value_11_3_hidden" value="5" size="2" 
-        	id="hide_appoint_4_3" type="hidden"/></td>
+                <input name="app_value_11_3" value="0" size="2" 
+        	class="change_input" id="appoint_2_3"/>
+        <input name="app_value_11_3_hidden" value="0" size="2" 
+        	id="hide_appoint_2_3" type="hidden"/></td>
          <td style="padding-left:5px;" height="25" align="center">
                 <input name="app_value_11_4" value="" size="2" 
-        	class="change_input" id="appoint_4_4"/>
+        	class="change_input" id="appoint_2_4"/>
         <input name="app_value_11_4_hidden" value="" size="2" 
-        	id="hide_appoint_4_4" type="hidden"/></td>
+        	id="hide_appoint_2_4" type="hidden"/></td>
     </tr>
+-->	
 	</table>
 <table width="50%" border="0" cellpadding="1" cellspacing="0">
 	<tr>
          <td width="120" height="35" class="title"></td>
 		 <td>
-		 	<input type="submit" class="commmonBtn" value="保存" onclick="submitform('do/do_AddCommmon.php?tag=1','index.php?type=teacher_edit');">&nbsp;&nbsp;
+		 	<input type="submit" class="commmonBtn" value="保存" onclick="submitform('do/do_AddCommmon.php?tag=1','/ourstudybuddy/${UserType}/teacher_Edit.do');">&nbsp;&nbsp;
 		 </td>
     </tr>
 </table>
