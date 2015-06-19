@@ -3,7 +3,7 @@ import java.io.IOException;
 
 import java.util.Date;
 
-import javax.annotation.Resource;
+//import javax.annotation.Resource;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -13,6 +13,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
 
 import com.billjc.framework.util.Constant;
 import com.billjc.speak.push.entity.Push;
@@ -25,7 +26,7 @@ public class SendMsg_webchinese {
 	
 	final Logger logger = LoggerFactory.getLogger(SendMsg_webchinese.class);
 	
-	@Resource
+//	@Resource
 	protected SMSLogDao smsLogDao;
 	
 	/**

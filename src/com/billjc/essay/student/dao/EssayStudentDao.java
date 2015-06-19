@@ -2,6 +2,7 @@ package com.billjc.essay.student.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,21 @@ import com.billjc.speak.students.dao.StudentDao;
 
 @Repository
 public class EssayStudentDao extends BaseJdbcDaoEssay {
-	final Logger logger = LoggerFactory.getLogger(StudentDao.class);
+	final Logger logger = LoggerFactory.getLogger(EssayStudentDao.class);
+	
+	/*
+	 * 查找com_member 所有记录
+	 * @parm 用户名，密码
+	 * @return com_member 对象（既是学生对象）
+	 * */
+	
+	public List<EssayStudent> queryComMemberObject(String Name, String Password){
+		String sql = "SELECT * FROM COM_MEMBER WHERE  memberName=? and password=?";
+		Object[] param = new Object[] { Name, Password };
+		logger.info("queryComMemberObject");
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().query( sql, param, new EssayStudentRowMapper() );
+	}
 	
 	/**
 	 * 查找学生
@@ -23,18 +38,22 @@ public class EssayStudentDao extends BaseJdbcDaoEssay {
 	 * @return 记录数
 	 * */
 	public int queryStudent(String Name, String Password){
-		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=?";
+		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=? and role=student";
 		Object[] param = new Object[] { Name, Password };
 		logger.info(sql.replaceAll("\\?", "{}"), param);
 		return this.getJdbcTemplate().queryForInt(sql, param);
 	}
 	
+	/**
+	 * 查找学生
+	 * @param 学生用户名，密码
+	 * @return 学生对象
+	 * */
 	public List<EssayStudent> queryStudentObject(String Name, String Password){
-		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=?";
+		String sql = "SELECT * FROM COM_MEMBER WHERE  memberName=? and password=? and role=student";
 		Object[] param = new Object[] { Name, Password };
 		logger.info(sql.replaceAll("\\?", "{}"), param);
-		return this.getJdbcTemplate().query(sql, param,
-				new EssayStudentRowMapper());
+		return this.getJdbcTemplate().query(sql, param, new EssayStudentRowMapper());
 	}
 	/*
 	 * 查找管理员
@@ -52,35 +71,57 @@ public class EssayStudentDao extends BaseJdbcDaoEssay {
 	 * @return 管理员对象
 	 * */
 	public List<EssayStudent> queryAdminObject(String Name, String Password){
-		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? and password=? and isAdmin=1";
+		String sql = "SELECT * FROM COM_MEMBER WHERE  memberName=? and password=? and isAdmin=1";
 		Object[] param = new Object[] { Name, Password };
 		logger.info(sql.replaceAll("\\?", "{}"), param);
-		return this.getJdbcTemplate().query(sql, param,
-				new EssayStudentRowMapper());
+		return this.getJdbcTemplate().query(sql, param, new EssayStudentRowMapper());
 	}
 	
 	public List<EssayStudent> queryStudentNameObject(String Name){
-		String sql = "SELECT COUNT(*) FROM COM_MEMBER WHERE  memberName=? ";
+		String sql = "SELECT * FROM COM_MEMBER WHERE  memberName=? ";
 		Object[] param = new Object[] { Name };
 		logger.info(sql.replaceAll("\\?", "{}"), param);
-		return this.getJdbcTemplate().query(sql, param,
-				new EssayStudentRowMapper());
+		return this.getJdbcTemplate().query(sql, param, new EssayStudentRowMapper());
 	}
 	
 	public List<EssayStudent> queryStudentIdObject( String Id ){
 		String sql = "SELECT * FROM COM_MEMBER WHERE  id=? ";
 		Object[] param = new Object[] { Id };
 		logger.info(sql.replaceAll("\\?", "{}"), param);
-		return this.getJdbcTemplate().query(sql, param,
-				new EssayStudentRowMapper());		
+		return this.getJdbcTemplate().query(sql, param, new EssayStudentRowMapper());		
 	}
+	
 	/*
-	 * 无条件查找学生
+	 * 无条件查找学生,只返来十条记录。
 	 * 
 	 * */
-	public List<EssayStudent> queryStudent(){
-		String sql = "SELECT * FROM COM_MEMBER ";
-		return this.getJdbcTemplate().query(sql,new EssayStudentRowMapper());
+	public List<EssayStudent> queryStudent( int startLine ){
+		String sql = "SELECT * FROM COM_MEMBER limit ?,10";
+		Object[] param = new Object[] { startLine };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().query(sql, param, new EssayStudentRowMapper());
+	}
+	
+	public int queryMemberCount(){
+		
+		String sql = "SELECT COUNT(*) FROM COM_MEMBER";
+		logger.info( sql );
+		return this.getJdbcTemplate().queryForInt(sql);
+	
+	}
+	
+	public List<EssayStudent> queryStudentSearch( String wanwan, String qq, String phone, String email, String date, int startLine){
+		String sql = "SELECT * FROM COM_MEMBER where wanwan like ? AND qq like ? AND phone like ? AND email like ? AND create_time like ? limit ?,10";
+		Object[] param = new Object[] { wanwan, qq, phone, email, date, startLine};
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().query(sql, param, new EssayStudentRowMapper());
+	}
+	
+	public int queryStudentSearchCount( String wanwan, String qq, String phone, String email, String date){
+		String sql = "SELECT COUNT(*) FROM COM_MEMBER where wanwan like ? AND qq like ? AND phone like ? AND email like ? AND create_time like ?";
+		Object[] param = new Object[] { wanwan, qq, phone, email, date };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		return this.getJdbcTemplate().queryForInt(sql, param );
 	}
 	
 	/**
@@ -95,6 +136,51 @@ public class EssayStudentDao extends BaseJdbcDaoEssay {
 		logger.info(sql.replaceAll("\\?", "{}"), param);
 		return this.getJdbcTemplate().query(sql, param,
 				new EssayStudentRowMapper());
+	}
+	
+	/*
+	 * 添加学生。
+	 * @parm 旺旺，qq，电话，邮箱，名字。
+	 * */
+	public int insertNewStudent(EssayStudent student){
+		
+		//Generate a uniq id for new student
+		String id_sql = "SELECT MAX(id) FROM COM_MEMBER";
+		int new_id = this.getJdbcTemplate().queryForInt(id_sql) + 1;
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		//Insert a new student
+		Object[] param = new Object[] {
+				new_id,
+				student.getWw(),
+				student.getQq(),
+				student.getPhone(),
+				student.getEmail(),
+				student.getName(),
+				student.getActive(),
+				student.getRole(),
+				student.getPassword(),
+				student.getIsAdmin(),
+				df.format( student.getCreateTime() )
+		};
+		String sql = "insert into COM_MEMBER (id, wanwan, qq, phone, email, memberName, active, role, password, isAdmin, create_time) values(?,?,?,?,?,?,?,?,?,?,?)" ;
+		
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		int rtncode = this.getJdbcTemplate().update(sql, param);
+				
+		return rtncode ;
+	}
+	/*
+	 *  更改用户密码
+	 *  @parm 密码， id
+	 * */
+	
+	public int updatePassword( String password, String id){
+		String sql = "update COM_MEMBER set password = ? where id = ?";
+		Object[] param = new Object[] { password, id };
+		logger.info(sql.replaceAll("\\?", "{}"), param);
+		int rtncode = this.getJdbcTemplate().update(sql, param);
+		return rtncode ;
 	}
 	/**
 	 * 查找某时间段内预约作文并且余额低于0的学生

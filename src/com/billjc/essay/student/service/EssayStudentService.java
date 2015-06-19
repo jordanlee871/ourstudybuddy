@@ -13,9 +13,13 @@ public class EssayStudentService {
 	
 	@Autowired
 	private EssayStudentDao essaystudentdao;
+
+	public List<EssayStudent> ListComMemberObject( String Name, String Password ){
+		return essaystudentdao.queryComMemberObject(Name, Password);
+	}
 	
-	public List<EssayStudent> Liststudent(){
-		return essaystudentdao.queryStudent();
+	public List<EssayStudent> Liststudent( int startLine ){
+		return essaystudentdao.queryStudent( startLine );
 	}
 	
 	public int queryStudent( String Name, String Password ){
@@ -30,4 +34,23 @@ public class EssayStudentService {
 		return essaystudentdao.queryStudentIdObject(Id);
 	}
 	
+	public List<EssayStudent> queryStudentSearch( String wanwan, String qq, String phone, String email, String date, int startLine ){
+		return essaystudentdao.queryStudentSearch( wanwan, qq, phone, email, date, startLine);
+	}
+	
+	public int queryStudentSearchCount( String wanwan, String qq, String phone, String email, String date ){
+		return essaystudentdao.queryStudentSearchCount( wanwan, qq, phone, email, date );
+	}
+	
+	public int insertNewStudent(EssayStudent student){
+		return essaystudentdao.insertNewStudent(student);
+	}
+	
+	public int updatePassword( String password, String id){
+		return essaystudentdao.updatePassword(password, id);
+	}
+	
+	public int queryMemberCount(){
+		return essaystudentdao.queryMemberCount();
+	}
 }

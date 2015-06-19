@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.billjc.essay.student.service.EssayStudentService;
 import com.billjc.essay.student.entity.EssayStudent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Controller
 @RequestMapping(value = "/essaystudent")
 public class EssayStudentController {
@@ -27,15 +30,35 @@ public class EssayStudentController {
 								   HttpServletRequest request, 
 								   HttpServletResponse response) throws Exception{
 		
-		List<EssayStudent> students = essaystudentservice.Liststudent();
-		
-		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
-		mav.addObject("studentlist", students);	
-		
-		int i = essaystudentservice.queryStudent( loginName, loginPass);
+/*		int i = essaystudentservice.queryStudent( loginName, loginPass);
 		
 		System.out.print(i);
+
+		List<EssayStudent> ComMemberList = essaystudentservice.ListComMemberObject(loginName, loginPass);
 		
+		System.out.println("Error: user not uniq!");
+		if ( ComMemberList.size() == 1 ){
+			System.out.println(ComMemberList.get(0).getName());
+		}
+		else{
+			System.out.println("Error: user not uniq!");
+		}
+*/		
+		List<EssayStudent> students = essaystudentservice.ListComMemberObject(loginName, loginPass);;		
+		ModelAndView mav = new ModelAndView("/JSP/sitemap/student_list");
+		mav.addObject("studentlist", students);	
+
+		return mav;
+		
+
+	}
+/*	
+	public ModelAndView StudentListPage(){
+		ModelAndView mav = new ModelAndView("/JSP/sitemap/admin/student_list");
+		List<EssayStudent> liststudent = essaystudentservice.Liststudent();
+		List<EssayStudent> subliststudent = liststudent.subList(0, 10);
+		mav.addObject("studentlist", subliststudent);
 		return mav;
 	}
+*/
 }
